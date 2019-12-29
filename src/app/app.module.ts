@@ -19,11 +19,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 /* Components */
 import { LogInComponent } from './components/log-in/log-in.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PatientComponent } from './components/patient/patient.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
+    PatientComponent,
   ],
   imports: [
     BrowserModule,
