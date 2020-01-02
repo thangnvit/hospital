@@ -1,0 +1,47 @@
+body {
+    background-color: lightgrey;
+}
+
+.fitGrid {
+    height: 100%;
+}
+
+.gridPackage {
+    height: 100%;
+    width: 100%;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}
+
+.imagePackage {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.patient {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.patientInfo {
+    width: 100%;
+    height: 100%;
+    margin: 20% 0 0 10%;
+    overflow: auto;
+}
+table {
+    width: 100%;
+}
+
+th {
+    width: 100px;
+}
+
+td {
+    text-align: center;
+}

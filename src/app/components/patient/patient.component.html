@@ -1,6 +1,183 @@
-<mat-grid-list cols="3" rowHeight="1:1">
-    <mat-grid-tile rowspan="2" style="background-color: aqua;"></mat-grid-tile>
-    <mat-grid-tile style="background-color: rgb(140, 177, 177);">1</mat-grid-tile>
-    <mat-grid-tile style="background-color: blueviolet;">1</mat-grid-tile>
-    <mat-grid-tile colspan="2" style="background-color: coral;">1</mat-grid-tile>
+  <mat-grid-list class="fitGrid" cols="6" rowHeight="fit" gutterSize="5px">
+    <mat-grid-tile rowspan="3">
+      <div class="gridPackage">
+        <mat-grid-list class="fitGrid" cols="1" rowHeight="fit">
+          <mat-grid-tile>
+            <div class="imagePackage">
+              <mat-grid-list cols="1">
+                <mat-grid-tile *ngFor="let image of patientImg">
+                  <img (click)="showFullImageClicked($event)" src="data:image/jpeg;base64,{{image}}">
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>  
+          </mat-grid-tile>
+          <mat-grid-tile rowspan="2">
+            <div class="patientInfo">
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Er" value="{{dataTable[0].er || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Te." value="{{dataTable[0].telephone || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Status" value="{{dataTable[0].status || 'Examined'}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Instutution" value="{{dataTable[0].institution_name || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="ID" value="{{dataTable[0].patient_id_issuer || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Name" value="{{dataTable[0].ptname || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Sex" value="{{dataTable[0].sex || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Patient Age" value="{{dataTable[0].age || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Patient Birthdate" value="{{dataTable[0].patient_birth_dttm || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Bodypart" value="{{dataTable[0].bodyparts || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Srs" value="{{dataTable[0].seriescnt || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Ins" value="{{dataTable[0].instcnt || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="MDl" value="{{dataTable[0].modalities || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Study Date	" value="{{dataTable[0].datetime || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Accession No." value="{{dataTable[0].accessno || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Study Desc.	" value="{{dataTable[0].desc || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="	Referring Doctor" value="{{dataTable[0].ref_physician || ''}}" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Station Name" value="{{dataTable[0].stationname || ''}}" readonly>
+                </mat-form-field>
+              </form>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile id="gridImage" colspan="3" rowspan="2">
+      <img src="{{urlImgClicked}}" [hidden]="!urlImgClicked">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="2">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5">
+      <div class="patient">
+        <table mat-table [dataSource]="dataTable" class="mat-elevation-z8">
+          <ng-container matColumnDef="er">
+            <th mat-header-cell *matHeaderCellDef> ER </th>
+            <td mat-cell *matCellDef="let element"> {{element.er || ''}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="telephone">
+            <th mat-header-cell *matHeaderCellDef> Te. </th>
+            <td mat-cell *matCellDef="let element"> {{element.telephone || ''}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status || 'Examined'}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="institution_name">
+            <th mat-header-cell *matHeaderCellDef> Instutution </th>
+            <td mat-cell *matCellDef="let element"> {{element.institution_name}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.patient_id_issuer + element.ptid}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="ptname">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.ptname}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="sex">
+            <th mat-header-cell *matHeaderCellDef> Sex </th>
+            <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
+          </ng-container>   
+  
+          <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef> Patient Age </th>
+            <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="patient_birth_dttm">
+            <th mat-header-cell *matHeaderCellDef> Patient Birthdate </th>
+            <td mat-cell *matCellDef="let element"> {{element.patient_birth_dttm}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="bodyparts">
+            <th mat-header-cell *matHeaderCellDef> Bodypart </th>
+            <td mat-cell *matCellDef="let element"> {{element.bodyparts}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="seriescnt">
+            <th mat-header-cell *matHeaderCellDef> Srs </th>
+            <td mat-cell *matCellDef="let element"> {{element.seriescnt}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="instcnt">
+            <th mat-header-cell *matHeaderCellDef> Ins </th>
+            <td mat-cell *matCellDef="let element"> {{element.instcnt}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="modalities">
+            <th mat-header-cell *matHeaderCellDef> MDl </th>
+            <td mat-cell *matCellDef="let element"> {{element.modalities}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="datetime">
+            <th mat-header-cell *matHeaderCellDef> Study Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.datetime}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="accessno">
+            <th mat-header-cell *matHeaderCellDef> Accession No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.accessno}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="desc">
+            <th mat-header-cell *matHeaderCellDef> Study Desc. </th>
+            <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="ref_physician">
+            <th mat-header-cell *matHeaderCellDef> Referring Doctor </th>
+            <td mat-cell *matCellDef="let element"> {{element.ref_physician}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="stationname">
+            <th mat-header-cell *matHeaderCellDef> Station Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.stationname}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+    </mat-grid-tile>
   </mat-grid-list>
+
+  
+  

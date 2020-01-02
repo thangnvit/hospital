@@ -19,9 +19,15 @@ export class LogInComponent implements OnInit {
     // http://pportal-demo.herokuapp.com/users/21533073/auth?dob=06-13
     const urlFilter = 'http://pportal-demo.herokuapp.com/users/' + this.turnID + '/auth?dob' + moment(this.birthday).format('MM-DD');
     this.http.get(urlFilter).subscribe(data => {
+      const token = this.getToken(data);
       this.router.navigate(['./patient']);
+      localStorage.setItem('token', token);
     }, error => {
-      alert('Không tìm thấy dữ liệu')
+      alert('Không tìm thấy dữ liệu');
     });
+  }
+
+  getToken(data) {
+    return data.data;
   }
 }
